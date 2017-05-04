@@ -122,19 +122,21 @@ searchLevel(hskFiles[0])
 function searchLevel(level){
 	var matchedWords = [];
 
-	var array = fs.readFileSync(level).toString().split("\n");
+	var array = fs.readFileSync(level).toString().split("\r\n");
 
+  //iterates through string to find matched words, found words are stored in matchedwords array
 	for(var i = 0; i < array.length; i++){
 		if (string.indexOf(array[i]) > 0){
 			matchedWords.push(array[i])
 		}
 	}
 
-	for(var i = 0; i < array.length; i++){
-		if (string.indexOf(array[i]) > 0){
-			string.slice(string.indexOf, array[i].length)
-		}
-	}
+  //
+	// for(var i = 0; i < array.length; i++){
+	// 	if (string.indexOf(array[i]) > 0){
+	// 		string.slice(string.indexOf, array[i].length)
+	// 	}
+	// }
 
 	total += matchedWords.length
 	console.log(level + " " + matchedWords + " ... " + matchedWords.length)
@@ -144,15 +146,3 @@ function searchLevel(level){
 console.log(total + " out of " + string.length)
 
 console.log(string)
-
-// var array = fs.readFileSync('level_5.txt').toString().split("\n");
-//
-// for(var i = 0; i < array.length; i++){
-// 	if (string.indexOf(array[i]) > 0){
-// 		matchedWords.push(array[i])
-// 	}
-// }
-// console.log(matchedWords)
-
-
-// functions.setUpDict()
