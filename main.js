@@ -112,7 +112,13 @@ var searchString = "的毛泽东发生冲突。在林彪阴谋败露后，四人
 var hskFiles = ['level_1.txt', 'level_2.txt', 'level_3.txt', 'level_4.txt', 'level_5.txt', 'level_6.txt']
 
 level5String = searchLevel(hskFiles[5], 6, searchString)
-console.log(searchLevel(hskFiles[4],5, level5String))
+var finalizedString = searchLevel(hskFiles[4],5, level5String)
+fs.writeFile("./index.html", finalizedString, function(err){
+	if(err){
+		console.log("big problem")
+	}
+	console.log("file written")
+})
 
 function searchLevel(level, levelNumber, string){
   var initString = string;
@@ -132,6 +138,7 @@ function searchLevel(level, levelNumber, string){
 	console.log("hsk " + levelNumber + " words: " + matchedWord);
   return initString;
 }
+
 
 
 // functions.setUpDict()
