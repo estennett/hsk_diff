@@ -111,9 +111,14 @@ setUpDict : function() {
 var searchString = "的毛泽东发生冲突。在林彪阴谋败露后，四人帮成为新的重要政治势力，中华人民共和国政治进一步混乱，故毛泽东重新起用邓小平出任第一副总理，重掌国务院以起相互牵制作用。1976年，周恩来、朱德、毛泽东先后去世；其后四人帮在怀仁堂事变中被逮捕，国务院总理华国锋接替毛泽东的领导地位，出任中国共产党中央委员会主席，成为最高领导人。尽管华国锋停止文革中的文攻武斗等混乱局势"
 var hskFiles = ['level_1.txt', 'level_2.txt', 'level_3.txt', 'level_4.txt', 'level_5.txt', 'level_6.txt']
 
-level5String = searchLevel(hskFiles[5], 6, searchString)
-var finalizedString = searchLevel(hskFiles[4],5, level5String)
-fs.writeFile("./index.html", finalizedString, function(err){
+//search searchString for each Level
+level6String = searchLevel(hskFiles[5], 6, searchString)
+level5String = searchLevel(hskFiles[4], 5, level6String)
+level4String = searchLevel(hskFiles[3], 4, level5String)
+level3String = searchLevel(hskFiles[2], 3, level4String)
+level2String = searchLevel(hskFiles[1], 2, level3String)
+var finalizedString = searchLevel(hskFiles[0],1, level2String)
+fs.writeFile("./index.html", '<html><head><meta charset="utf8"></meta></head><body><div>' + finalizedString + '</div></body></html>', 'utf8', function(err){
 	if(err){
 		console.log("big problem")
 	}

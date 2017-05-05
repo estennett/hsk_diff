@@ -1,0 +1,37 @@
+text{
+  line-height: 2em;
+}
+
+.level_1{
+  background: skyblue;
+  border: 1px blue dotted;
+}
+
+.level_2{
+  background: lime;
+  border: 2px green dotted;
+}
+
+.level_3{
+  background: pink;
+  border: 3px magenta dotted;
+}
+
+.level_4{
+  background: orange;
+  border: 4px tangerine dotted;
+}
+
+.level_5{
+  background: red;
+  border: 5px tomato dotted;
+}
+
+.level_6{
+  background: white;
+  border: 6px gray dotted;
+}
+
+div{
+  line-height: 2em;
+}
