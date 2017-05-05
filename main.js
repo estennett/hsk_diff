@@ -106,53 +106,35 @@ setUpDict : function() {
 
   }//end setUpDict
 }//end functions
-var string = "的毛泽东发生冲突。在林彪阴谋败露后，四人帮成为新的重要政治势力，中华人民共和国政治进一步混乱，故毛泽东重新起用邓小平出任第一副总理，重掌国务院以起相互牵制作用。1976年，周恩来、朱德、毛泽东先后去世；其后四人帮在怀仁堂事变中被逮捕，国务院总理华国锋接替毛泽东的领导地位，出任中国共产党中央委员会主席，成为最高领导人。尽管华国锋停止文革中的文攻武斗等混乱局势"
 
+
+var searchString = "的毛泽东发生冲突。在林彪阴谋败露后，四人帮成为新的重要政治势力，中华人民共和国政治进一步混乱，故毛泽东重新起用邓小平出任第一副总理，重掌国务院以起相互牵制作用。1976年，周恩来、朱德、毛泽东先后去世；其后四人帮在怀仁堂事变中被逮捕，国务院总理华国锋接替毛泽东的领导地位，出任中国共产党中央委员会主席，成为最高领导人。尽管华国锋停止文革中的文攻武斗等混乱局势"
 var hskFiles = ['level_1.txt', 'level_2.txt', 'level_3.txt', 'level_4.txt', 'level_5.txt', 'level_6.txt']
-var total = 0;
 
-searchLevel(hskFiles[5])
-searchLevel(hskFiles[4])
-searchLevel(hskFiles[3])
-searchLevel(hskFiles[2])
-searchLevel(hskFiles[1])
-searchLevel(hskFiles[0])
+level5String = searchLevel(hskFiles[5], 6, searchString)
+console.log(searchLevel(hskFiles[4],5, level5String))
 
+function searchLevel(level, levelNumber, string){
+  var initString = string;
+  var resultString = "";
 
-function searchLevel(level){
-	var matchedWords = [];
+  //read hsk file level
+  var hskDictArray = fs.readFileSync(level).toString().split("\r\n");
 
-	var array = fs.readFileSync(level).toString().split("\n");
-
-	for(var i = 0; i < array.length; i++){
-		if (string.indexOf(array[i]) > 0){
-			matchedWords.push(array[i])
-		}
-	}
-
-	for(var i = 0; i < array.length; i++){
-		if (string.indexOf(array[i]) > 0){
-			string.slice(string.indexOf, array[i].length)
-		}
-	}
-
-	total += matchedWords.length
-	console.log(level + " " + matchedWords + " ... " + matchedWords.length)
-
+  //look through
+  var index = 0;
+  for(var i = 0; i < hskDictArray.length; i++){
+		console.log("init string: " + initString);
+		console.log("init string: " + resultString);
+    var stringIndex = initString.indexOf(hskDictArray[i])
+    if (stringIndex > 0){
+      var $el = "<span class=level_" + levelNumber + ">" + hskDictArray[i] + "</span>"
+      resultString =  resultString + initString.slice(0, stringIndex) + $el;
+      initString = initString.slice(stringIndex + hskDictArray[i].length)
+    }
+  }
+  return resultString;
 }
-
-console.log(total + " out of " + string.length)
-
-console.log(string)
-
-// var array = fs.readFileSync('level_5.txt').toString().split("\n");
-//
-// for(var i = 0; i < array.length; i++){
-// 	if (string.indexOf(array[i]) > 0){
-// 		matchedWords.push(array[i])
-// 	}
-// }
-// console.log(matchedWords)
 
 
 // functions.setUpDict()
