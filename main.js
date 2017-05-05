@@ -116,24 +116,21 @@ console.log(searchLevel(hskFiles[4],5, level5String))
 
 function searchLevel(level, levelNumber, string){
   var initString = string;
-  var resultString = "";
-
+	var matchedWord = 0;
   //read hsk file level
   var hskDictArray = fs.readFileSync(level).toString().split("\r\n");
-
-  //look through
   var index = 0;
+
   for(var i = 0; i < hskDictArray.length; i++){
-		console.log("init string: " + initString);
-		console.log("init string: " + resultString);
     var stringIndex = initString.indexOf(hskDictArray[i])
     if (stringIndex > 0){
+			matchedWord++;
       var $el = "<span class=level_" + levelNumber + ">" + hskDictArray[i] + "</span>"
-      resultString =  resultString + initString.slice(0, stringIndex) + $el;
-      initString = initString.slice(stringIndex + hskDictArray[i].length)
-    }
+			initString = initString.slice(0, stringIndex) + $el + initString.slice(stringIndex + hskDictArray[i].length);
+		}
   }
-  return resultString;
+	console.log("hsk " + levelNumber + " words: " + matchedWord);
+  return initString;
 }
 
 
