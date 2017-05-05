@@ -112,13 +112,13 @@ var searchString = "的毛泽东发生冲突。在林彪阴谋败露后，四人
 var hskFiles = ['level_1.txt', 'level_2.txt', 'level_3.txt', 'level_4.txt', 'level_5.txt', 'level_6.txt']
 
 //search searchString for each Level
-level6String = searchLevel(hskFiles[5], 6, searchString)
-level5String = searchLevel(hskFiles[4], 5, level6String)
-level4String = searchLevel(hskFiles[3], 4, level5String)
-level3String = searchLevel(hskFiles[2], 3, level4String)
-level2String = searchLevel(hskFiles[1], 2, level3String)
-var finalizedString = searchLevel(hskFiles[0],1, level2String)
-fs.writeFile("./index.html", '<html><head><meta charset="utf8"></meta></head><body><div>' + finalizedString + '</div></body></html>', 'utf8', function(err){
+// level6String = searchLevel(hskFiles[5], 6, searchString)
+// level5String = searchLevel(hskFiles[4], 5, level6String)
+// level4String = searchLevel(hskFiles[3], 4, level5String)
+// level3String = searchLevel(hskFiles[2], 3, level4String)
+// level2String = searchLevel(hskFiles[1], 2, level3String)
+var finalizedString = searchLevel(hskFiles[3],4, searchString)
+fs.writeFile("./index.html", '<html><head><meta charset="utf8"></meta><link rel="stylesheet" href="css.css"></link></head><body><div>' + finalizedString + '</div></body></html>', 'utf8', function(err){
 	if(err){
 		console.log("big problem")
 	}
@@ -126,22 +126,31 @@ fs.writeFile("./index.html", '<html><head><meta charset="utf8"></meta></head><bo
 })
 
 function searchLevel(level, levelNumber, string){
-  var initString = string;
+  var iterateString = string;
 	var matchedWord = 0;
-  //read hsk file level
   var hskDictArray = fs.readFileSync(level).toString().split("\r\n");
+	hskDictArray.pop() //get rid of that last empty bit on the array
   var index = 0;
 
   for(var i = 0; i < hskDictArray.length; i++){
-    var stringIndex = initString.indexOf(hskDictArray[i])
+    var stringIndex = iterateString.indexOf(hskDictArray[i])
+		if(stringIndex > -1){ console.log(i + ': first string index: ' + stringIndex + ' :' + hskDictArray[i])}
     if (stringIndex > 0){
 			matchedWord++;
       var $el = "<span class=level_" + levelNumber + ">" + hskDictArray[i] + "</span>"
-			initString = initString.slice(0, stringIndex) + $el + initString.slice(stringIndex + hskDictArray[i].length);
+			iterateString = iterateString.slice(0, stringIndex) + $el + iterateString.slice(stringIndex + hskDictArray[i].length);
+			}
+
+			var stringIndex2 = iterateString.indexOf(hskDictArray[i], stringIndex + 20 + hskDictArray[i].length)
+			if(stringIndex2 > -1){
+				matchedWord++;
+				var $el = "<span class=level_" + levelNumber + ">" + hskDictArray[i] + "</span>"
+				iterateString = iterateString.slice(0, stringIndex2) + $el + iterateString.slice(stringIndex2 + hskDictArray[i].length);
+				console.log('matched another one')
+			}
 		}
-  }
 	console.log("hsk " + levelNumber + " words: " + matchedWord);
-  return initString;
+  return iterateString;
 }
 
 
