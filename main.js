@@ -25,7 +25,7 @@ fs.writeFile("./index.html", '<html><head><meta charset="utf8"></meta><link rel=
 
 function searchLevel(level, levelNumber, searchString, masterArrayConstruct){
   var initialInputArray = searchString.split("");
-  var hskDictArray = fs.readFileSync(level).toString().split("\r\n");
+  var hskDictArray = fs.readFileSync(level).toString().split("\n");
 	hskDictArray.pop() //get rid of that last empty bit on the array
 	if(!masterArrayConstruct){
 		var masterArrayConstruct = []
@@ -36,20 +36,20 @@ function searchLevel(level, levelNumber, searchString, masterArrayConstruct){
   for(var i = 0; i < initialInputArray.length; i++){
 		for(var j = 0; j < hskDictArray.length; j++){
 			if(initialInputArray[i] === hskDictArray[j]){
-				console.log('we made it to the middle sweet')
 				if(!masterArrayConstruct[i]){
-					masterArrayConstruct[i] = {
-						words : [[initialInputArray[i], initialInputArray[i].length, levelNumber]],
+						masterArrayConstruct[i] = {
+						leadCharacter : initialInputArray[i],
+						words : [[initialInputArray[i].length, levelNumber]],
 					}
-					console.log('we in here');
 				}else{
-					masterArrayConstruct[i].words.push([initialInputArray[i], initialInputArray[i].length, levelNumber]	);
+					masterArrayConstruct[i].words.push([initialInputArray[i].length, levelNumber]	);
 				}
 			}// end conditional
 		}// end inner for loop
 		if(!masterArrayConstruct[i] ){
 			masterArrayConstruct[i] = {
-				words : [[initialInputArray[i], initialInputArray[i].length, null]],
+				leadCharacter : initialInputArray[i],
+				words : []
 			}
 		}//end conditional
 	}//end outer for loop
