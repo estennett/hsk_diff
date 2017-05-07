@@ -35,14 +35,26 @@ function searchLevel(level, levelNumber, searchString, masterArrayConstruct){
 
   for(var i = 0; i < initialInputArray.length; i++){
 		for(var j = 0; j < hskDictArray.length; j++){
-			if(initialInputArray[i] === hskDictArray[j]){
+			if(hskDictArray[j].length > 1){
+				var testWord = initialInputArray.slice(i, i + hskDictArray[j].length).join('')
+				if(testWord === hskDictArray[j]){
+					if(!masterArrayConstruct[i]){
+						masterArrayConstruct[i] = {
+							leadCharacter : initialInputArray[i],
+							words : [[hskDictArray[j].length	, levelNumber]]
+						}
+					}else{
+						masterArrayConstruct[i].words.push([hskDictArray[j].length, levelNumber]);
+					}
+				}
+			}else if(initialInputArray[i] === hskDictArray[j]){
 				if(!masterArrayConstruct[i]){
 						masterArrayConstruct[i] = {
 						leadCharacter : initialInputArray[i],
-						words : [[initialInputArray[i].length, levelNumber]],
+						words : [[initialInputArray[i].length, levelNumber]]
 					}
 				}else{
-					masterArrayConstruct[i].words.push([initialInputArray[i].length, levelNumber]	);
+					masterArrayConstruct[i].words.push([initialInputArray[i].length, levelNumber]);
 				}
 			}// end conditional
 		}// end inner for loop
